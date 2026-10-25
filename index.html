@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dev Mindset | Frase do Dia</title>
+    <!-- Tailwind CSS para estilização rápida e moderna -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 h-screen flex flex-col justify-between items-center p-6">
+    
+    <!-- Cabeçalho -->
+    <header class="w-full max-w-xl text-center py-4">
+        <span class="text-xs uppercase tracking-widest text-emerald-400 font-semibold">Simplicidade & Código Limpo</span>
+    </header>
+
+    <!-- Card Principal -->
+    <main class="w-full max-w-xl bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-2xl text-center flex flex-col items-center gap-6">
+        <div class="text-emerald-400 text-4xl">“</div>
+        <p id="quote" class="text-lg font-medium text-slate-300 italic">
+            "Carregando inspiração para o seu código..."
+        </p>
+        <span id="author" class="text-sm text-slate-500 font-mono">- Dev</span>
+        
+        <button onclick="generateQuote()" class="mt-4 px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-semibold rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/20 cursor-pointer">
+            Nova Frase 🚀
+        </button>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="text-xs text-slate-600">
+        Feito com 💚 para o GitHub contributions.
+    </footer>
+
+    <!-- Lógica Simples em JavaScript -->
+    <script>
+        const quotes = [
+            { text: "Simplicidade é a alma da eficiência.", author: "Austin Freeman" },
+            { text: "Faça funcionar, faça direito, faça rápido.", author: "Kent Beck" },
+            { text: "Código é como humor. Quando você precisa explicá-lo, é ruim.", author: "Cory House" },
+            { text: "Primeiro, resolva o problema. Depois, escreva o código.", author: "John Johnson" },
+            { text: "A melhor maneira de prever o futuro é inventá-lo.", author: "Alan Kay" }
+        ];
+
+        function generateQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            const selected = quotes[randomIndex];
+            
+            const quoteEl = document.getElementById('quote');
+            const authorEl = document.getElementById('author');
+            
+            // Efeito fade simples
+            quoteEl.style.opacity = 0;
+            authorEl.style.opacity = 0;
+            
+            setTimeout(() => {
+                quoteEl.textContent = `"${selected.text}"`;
+                authorEl.textContent = `- ${selected.author}`;
+                quoteEl.style.opacity = 1;
+                authorEl.style.opacity = 1;
+            }, 150);
+        }
+
+        // Executa na primeira carga
+        generateQuote();
+    </script>
+</body>
+</html>
