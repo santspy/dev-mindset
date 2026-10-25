@@ -40,21 +40,25 @@
             <!-- Aspas Decorativas -->
             <div class="text-emerald-400/30 text-6xl font-serif leading-none select-none">“</div>
 
-            <!-- Área da Frase -->
+            <!-- Área da Frase (Texto Padrão de Fallback) -->
             <div id="quote-container" class="quote-transition min-h-[110px] flex flex-col justify-center items-center gap-3">
-                <p id="quote" class="text-xl sm:text-2xl font-medium text-slate-200 leading-relaxed italic"></p>
-                <span id="author" class="text-sm font-mono text-emerald-400/90 font-medium"></span>
+                <p id="quote" class="text-xl sm:text-2xl font-medium text-slate-200 leading-relaxed italic">
+                    "Simplicidade é a alma da eficiência."
+                </p>
+                <span id="author" class="text-sm font-mono text-emerald-400/90 font-medium">
+                    - Austin Freeman
+                </span>
             </div>
 
-            <!-- Botões de Ação -->
+            <!-- Botões de Ação com onclick direto -->
             <div class="flex flex-wrap justify-center items-center gap-4 pt-4 w-full border-t border-slate-800/80">
-                <button id="btn-generate" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-400/30 active:scale-95 flex items-center gap-2 cursor-pointer">
+                <button onclick="generateQuote()" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-400/30 active:scale-95 flex items-center gap-2 cursor-pointer">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                     Nova Frase
                 </button>
 
-                <button id="btn-copy" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm rounded-xl border border-slate-700 transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 002-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                <button onclick="copyQuote()" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm rounded-xl border border-slate-700 transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     <span id="copy-text">Copiar</span>
                 </button>
             </div>
@@ -66,9 +70,9 @@
         Desenvolvido com Clean Code & UX • <a href="https://github.com/santspy" target="_blank" class="text-slate-400 hover:underline">@santspy</a>
     </footer>
 
-    <!-- Script Corrigido -->
+    <!-- Script Simplificado e Seguro -->
     <script>
-        const quotes = [
+        var quotes = [
             { text: "Simplicidade é a alma da eficiência.", author: "Austin Freeman" },
             { text: "Faça funcionar, faça direito, faça rápido.", author: "Kent Beck" },
             { text: "Código é como humor. Quando você precisa explicá-lo, é ruim.", author: "Cory House" },
@@ -91,32 +95,56 @@
             { text: "Sempre programe como se a pessoa que fosse dar manutenção no seu código fosse um psicopata violento que sabe onde você mora.", author: "John Woods" }
         ];
 
-        let lastIndex = -1;
+        var lastIndex = -1;
 
         function generateQuote() {
-            let randomIndex;
+            var randomIndex;
             
             do {
                 randomIndex = Math.floor(Math.random() * quotes.length);
             } while (randomIndex === lastIndex && quotes.length > 1);
             
             lastIndex = randomIndex;
-            const selected = quotes[randomIndex];
+            var selected = quotes[randomIndex];
             
-            const container = document.getElementById('quote-container');
-            const quoteEl = document.getElementById('quote');
-            const authorEl = document.getElementById('author'); // Corrigido aqui com o 'const'
+            var container = document.getElementById('quote-container');
+            var quoteEl = document.getElementById('quote');
+            var authorEl = document.getElementById('author');
             
-            container.style.opacity = '0';
-            container.style.transform = 'translateY(6px)';
-            
-            setTimeout(() => {
-                quoteEl.textContent = `"${selected.text}"`;
-                authorEl.textContent = `- ${selected.author}`;
+            if (container && quoteEl && authorEl) {
+                container.style.opacity = '0';
+                container.style.transform = 'translateY(6px)';
                 
-                container.style.opacity = '1';
-                container.style.transform = 'translateY(0px)';
-            }, 150);
+                setTimeout(function() {
+                    quoteEl.textContent = '"' + selected.text + '"';
+                    authorEl.textContent = '- ' + selected.author;
+                    
+                    container.style.opacity = '1';
+                    container.style.transform = 'translateY(0px)';
+                }, 150);
+            }
         }
 
-        function
+        function copyQuote() {
+            var quoteText = document.getElementById('quote').textContent;
+            var authorText = document.getElementById('author').textContent;
+            var fullText = quoteText + ' ' + authorText;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(fullText).then(function() {
+                    var copyTextEl = document.getElementById('copy-text');
+                    if (copyTextEl) {
+                        copyTextEl.textContent = 'Copiado!';
+                        setTimeout(function() {
+                            copyTextEl.textContent = 'Copiar';
+                        }, 2000);
+                    }
+                });
+            }
+        }
+
+        // Executa o primeiro sorteio assim que o script carregar
+        generateQuote();
+    </script>
+</body>
+</html>
