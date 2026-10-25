@@ -30,4 +30,93 @@
             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             Dev Mindset v1.0
         </div>
-        <h1 class="
+        <h1 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Inspiração para Devs</h1>
+    </header>
+
+    <!-- Card Principal -->
+    <main class="w-full max-w-2xl z-10 my-auto py-6">
+        <div class="bg-slate-900/60 backdrop-blur-xl border border-slate-800 p-8 sm:p-10 rounded-3xl shadow-2xl relative flex flex-col items-center text-center gap-6 group hover:border-slate-700 transition-all duration-300">
+            
+            <!-- Aspas Decorativas -->
+            <div class="text-emerald-400/30 text-6xl font-serif leading-none select-none">“</div>
+
+            <!-- Área da Frase -->
+            <div id="quote-container" class="quote-transition min-h-[110px] flex flex-col justify-center items-center gap-3">
+                <p id="quote" class="text-xl sm:text-2xl font-medium text-slate-200 leading-relaxed italic"></p>
+                <span id="author" class="text-sm font-mono text-emerald-400/90 font-medium"></span>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="flex flex-wrap justify-center items-center gap-4 pt-4 w-full border-t border-slate-800/80">
+                <button id="btn-generate" class="px-6 py-3 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm rounded-xl transition-all duration-200 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-400/30 active:scale-95 flex items-center gap-2 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    Nova Frase
+                </button>
+
+                <button id="btn-copy" class="px-5 py-3 bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium text-sm rounded-xl border border-slate-700 transition-all duration-200 active:scale-95 flex items-center gap-2 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 002-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    <span id="copy-text">Copiar</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="w-full text-center py-4 text-xs text-slate-500 font-mono z-10">
+        Desenvolvido com Clean Code & UX • <a href="https://github.com/santspy" target="_blank" class="text-slate-400 hover:underline">@santspy</a>
+    </footer>
+
+    <!-- Script Corrigido -->
+    <script>
+        const quotes = [
+            { text: "Simplicidade é a alma da eficiência.", author: "Austin Freeman" },
+            { text: "Faça funcionar, faça direito, faça rápido.", author: "Kent Beck" },
+            { text: "Código é como humor. Quando você precisa explicá-lo, é ruim.", author: "Cory House" },
+            { text: "Primeiro, resolva o problema. Depois, escreva o código.", author: "John Johnson" },
+            { text: "A melhor maneira de prever o futuro é inventá-lo.", author: "Alan Kay" },
+            { text: "Limpeza de código não é sobre regras estritas, é sobre cuidado.", author: "Robert C. Martin (Uncle Bob)" },
+            { text: "Qualquer tolo pode escrever código que um computador entenda. Bons programadores escrevem código que humanos podem entender.", author: "Martin Fowler" },
+            { text: "A experiência é o nome que todos dão aos seus próprios erros.", author: "Oscar Wilde" },
+            { text: "A questão não é saber se o código tem bugs, mas sim onde eles estão escondidos.", author: "Anônimo" },
+            { text: "Antes de personalizar, padronize. Antes de otimizar, simplifique.", author: "Anônimo" },
+            { text: "Tornar o simples complicado é fácil; tornar o complicado simples é criatividade.", author: "Charles Mingus" },
+            { text: "Software testado é software confiável.", author: "Linus Torvalds" },
+            { text: "Programar é a arte de dizer a outro humano o que você quer que o computador faça.", author: "Donald Knuth" },
+            { text: "A única maneira de ir rápido é ir bem feito.", author: "Robert C. Martin" },
+            { text: "Não comente código ruim — reescreva-o.", author: "Brian W. Kernighan" },
+            { text: "Medir o progresso da programação por linhas de código é como medir o progresso da construção de aeronaves pelo peso.", author: "Bill Gates" },
+            { text: "A complexidade é o inimigo mortal da engenharia de software.", author: "Anônimo" },
+            { text: "A clareza é melhor do que a esperteza.", author: "Go Proverbs" },
+            { text: "Remover código morto é uma das melhores otimizações que você pode fazer.", author: "Anônimo" },
+            { text: "Sempre programe como se a pessoa que fosse dar manutenção no seu código fosse um psicopata violento que sabe onde você mora.", author: "John Woods" }
+        ];
+
+        let lastIndex = -1;
+
+        function generateQuote() {
+            let randomIndex;
+            
+            do {
+                randomIndex = Math.floor(Math.random() * quotes.length);
+            } while (randomIndex === lastIndex && quotes.length > 1);
+            
+            lastIndex = randomIndex;
+            const selected = quotes[randomIndex];
+            
+            const container = document.getElementById('quote-container');
+            const quoteEl = document.getElementById('quote');
+            const authorEl = document.getElementById('author'); // Corrigido aqui com o 'const'
+            
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(6px)';
+            
+            setTimeout(() => {
+                quoteEl.textContent = `"${selected.text}"`;
+                authorEl.textContent = `- ${selected.author}`;
+                
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0px)';
+            }, 150);
+        }
+
+        function
